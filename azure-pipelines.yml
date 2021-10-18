@@ -81,6 +81,7 @@ stages:
         displayName: unit tests frontend
   - job: BuildBackendApp
     displayName: build Backend App
+    dependsOn: BuildFrontendApp
     steps:
       - script: echo stage 1. job 2. script 1
         displayName: build backend app
