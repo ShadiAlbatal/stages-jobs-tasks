@@ -26,21 +26,6 @@ stages:
       - script: echo stage 1. job 2. script 2
         displayName: unit tests backend
 
-- stage: DeployToDev
-  dependsOn: BuildApps
-  displayName: deploy to DEv env
-  jobs:
-    - job: DeployFrontendDev
-      displayName: deploy frontend to dev 
-      steps:
-      - script: echo stage 2. job 1. script 1
-        displayName: deploy frontend app to dev
-    - job: DeployBackendDev
-      displayName: deploy backend to dev
-      steps:
-      - script: echo stage 2. job 2. script 1
-        displayName: deploy frontend to dev
-
 - stage: DeployToQA
   displayName: deploy to QA
   pool:
@@ -60,6 +45,22 @@ stages:
       steps:
       - script: echo stage 4. job 2. script 1
         displayName: deploy backend to QA
+
+- stage: DeployToDev
+  dependsOn: BuildApps
+  displayName: deploy to DEv env
+  condition: failed()
+  jobs:
+    - job: DeployFrontendDev
+      displayName: deploy frontend to dev 
+      steps:
+      - script: echo stage 2. job 1. script 1
+        displayName: deploy frontend app to dev
+    - job: DeployBackendDev
+      displayName: deploy backend to dev
+      steps:
+      - script: echo stage 2. job 2. script 1
+        displayName: deploy frontend to dev
 
 - stage: DeployProd
   displayName: deploy frontend to prod env
