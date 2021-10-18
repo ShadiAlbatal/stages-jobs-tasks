@@ -28,23 +28,44 @@ stages:
         displayName: unit tests backend
 
 - stage: DeployToDev
-  dependsOn: []
+  dependsOn: BuildApps
   displayName: deploy to DEv env
   jobs:
     - job: DeployFrontendDev
       displayName: deploy frontend to dev 
       steps:
-        - script: echo stage 2. job 1. script 1
-          displayName: deploy frontend app to dev
+      - script: echo stage 2. job 1. script 1
+        displayName: deploy frontend app to dev
     - job: DeployBackendDev
       displayName: deploy backend to dev
       steps:
       - script: echo stage 2. job 2. script 1
         displayName: deploy frontend to dev
 
+- stage: DeployToQA
+  dependsOn:
+  - BuildApps
+  - DeployToDev
+  - DeployProd
+
+  displayName: deploy to QA 
+  jobs:
+    - job: DeployFrontendToQA
+      displayName: deploy frontend to QA 
+      steps:
+      - script: echo stage 4. job 1. script 1
+        displayName: deploy frontend app to QA
+    - job: DeployBackendDev
+      displayName: deploy backend to QA
+      steps:
+      - script: echo stage 4. job 2. script 1
+        displayName: deploy backend to QA
+
 - stage: DeployProd
   displayName: deploy frontend to prod env
-  dependsOn: []
+  dependsOn:
+  - BuildApps
+  - DeployToDev
   jobs:
   - job: DeployFrontendToProd
     displayName: deploy frontend to prod
