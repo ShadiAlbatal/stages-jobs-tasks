@@ -62,7 +62,7 @@ stages:
 - stage: DeployProd
   displayName: deploy frontend to prod env
   dependsOn:
-  - BuildApps
+  - DeployToQA
   - DeployToDev
   condition: succeeded('DeployToDev')
   jobs:
