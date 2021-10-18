@@ -44,7 +44,7 @@ stages:
 - stage: DeployToQA
   displayName: deploy to QA
   pool:
-    vmImage: 'macos-10.14'
+    vmImage: 'macos-10.'
   dependsOn:
   - BuildApps
   # - DeployToDev
