@@ -42,12 +42,11 @@ stages:
         displayName: deploy frontend to dev
 
 - stage: DeployToQA
+  displayName: deploy to QA
   dependsOn:
   - BuildApps
-  - DeployToDev
-  - DeployProd
-
-  displayName: deploy to QA 
+  # - DeployToDev
+  # - DeployProd
   jobs:
     - job: DeployFrontendToQA
       displayName: deploy frontend to QA 
@@ -65,6 +64,7 @@ stages:
   dependsOn:
   - BuildApps
   - DeployToDev
+  condition: succeeded('DeployToDev')
   jobs:
   - job: DeployFrontendToProd
     displayName: deploy frontend to prod
