@@ -10,7 +10,6 @@ stages:
 
 - stage: BuildApps
   displayName: Build apps
-  dependsOn: []
   jobs:
   - job: BuildFrontendApp
     displayName: Build frontend app
